@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foto Pending Upload</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #4a90e2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            color: #2c5f8d;
+            margin-bottom: 10px;
+        }
+        
+        .instructions {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 4px solid #4a90e2;
+        }
+        
+        .instructions h3 {
+            color: #2c5f8d;
+            margin-bottom: 10px;
+        }
+        
+        .instructions ol {
+            margin-left: 20px;
+            line-height: 1.8;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: #4a90e2;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #2c5f8d;
+            transform: translateY(-2px);
+        }
+        
+        .btn-success {
+            background: #27ae60;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #229954;
+        }
+        
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .photo-card {
+            position: relative;
+            background: #f8f9fa;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .photo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        
+        .photo-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .photo-info {
+            padding: 10px;
+        }
+        
+        .photo-name {
+            font-size: 0.85rem;
+            color: #555;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #7f8c8d;
+        }
+        
+        .empty-state h2 {
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📤 Foto Pending Upload</h1>
+        <p style="color: #7f8c8d; margin-bottom: 20px;">Foto yang siap diupload ke Google Drive</p>
+        
+        <div class="instructions">
+            <h3>📋 Cara Upload ke Google Drive:</h3>
+            <ol>
+                <li><strong>Klik kanan</strong> pada foto di bawah</li>
+                <li>Pilih <strong>"Save Image As..."</strong> atau <strong>"Copy Image"</strong></li>
+                <li>Buka <strong>Google Drive folder</strong> Anda</li>
+                <li><strong>Upload</strong> atau <strong>Paste</strong> foto tersebut</li>
+                <li>Setelah selesai, klik <strong>"Tandai Selesai"</strong> di bawah</li>
+            </ol>
+        </div>
+        
+        <div class="button-group">
+            <button class="btn btn-primary" onclick="openDriveFolder()">
+                📂 Buka Google Drive
+            </button>
+            <button class="btn btn-success" onclick="markAllDone()">
+                ✅ Tandai Semua Selesai
+            </button>
+            <button class="btn btn-danger" onclick="clearAll()">
+                🗑️ Hapus Semua
+            </button>
+        </div>
+        
+        <div id="gallery" class="gallery"></div>
+        
+        <div id="emptyState" class="empty-state" style="display: none;">
+            <h2>✅ Tidak Ada Foto Pending</h2>
+            <p>Semua foto sudah diupload!</p>
+            <button class="btn btn-primary" onclick="window.close()" style="margin-top: 20px;">
+                Tutup Halaman
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        const DRIVE_FOLDER_ID = '1E3RWMKJReThOjNy-oVGRUpjiDPAWVEw8';
+        
+        function loadPendingPhotos() {
+            const pending = JSON.parse(localStorage.getItem('pendingUploads') || '[]');
+            const gallery = document.getElementById('gallery');
+            const emptyState = document.getElementById('emptyState');
+            
+            if (pending.length === 0) {
+                gallery.style.display = 'none';
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            gallery.innerHTML = '';
+            pending.forEach((photo, index) => {
+                const card = document.createElement('div');
+                card.className = 'photo-card';
+                card.innerHTML = `
+                    <img src="${photo.data}" alt="${photo.name}" 
+                         oncontextmenu="return true;" 
+                         draggable="true">
+                    <div class="photo-info">
+                        <div class="photo-name" title="${photo.name}">${photo.name}</div>
+                    </div>
+                `;
+                
+                // Allow download on click
+                card.querySelector('img').onclick = function() {
+                    downloadImage(photo.data, photo.name);
+                };
+                
+                gallery.appendChild(card);
+            });
+        }
+        
+        function downloadImage(dataUrl, filename) {
+            const link = document.createElement('a');
+            link.href = dataUrl;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+        
+        function openDriveFolder() {
+            window.open(`https://drive.google.com/drive/folders/${DRIVE_FOLDER_ID}`, '_blank');
+        }
+        
+        function markAllDone() {
+            if (confirm('Yakin semua foto sudah diupload ke Google Drive?')) {
+                localStorage.removeItem('pendingUploads');
+                alert('✅ Berhasil! Silakan refresh halaman utama untuk melihat foto baru.');
+                window.close();
+            }
+        }
+        
+        function clearAll() {
+            if (confirm('Hapus semua foto pending? Foto tidak akan diupload.')) {
+                localStorage.removeItem('pendingUploads');
+                loadPendingPhotos();
+            }
+        }
+        
+        // Load on page load
+        loadPendingPhotos();
+    </script>
+</body>
+</html>

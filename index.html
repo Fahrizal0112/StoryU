@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Tentang Kita</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Password Protection -->
+    <div id="passwordOverlay" class="password-overlay">
+        <div class="password-container">
+            <div class="password-header">
+                <div class="lock-icon">🔒</div>
+                <h2>Masukkan Password</h2>
+                <p>Untuk mengakses halaman ini</p>
+            </div>
+            <div class="password-input-group">
+                <input type="password" 
+                       id="passwordInput" 
+                       placeholder="Masukkan password..."
+                       maxlength="6">
+                <button id="unlockBtn" onclick="checkPassword()">Masuk</button>
+            </div>
+            <div id="passwordError" class="password-error"></div>
+            <div class="password-hint">
+                Hint: Tanggal spesial kita
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="mainContent" style="display: none;">
+        <header class="hero">
+            <h1 class="main-title">Memory</h1>
+        </header>
+
+        <section class="gallery-section">
+            <div id="photoGallery" class="photo-grid">
+                <div class="loading">Memuat foto...</div>
+            </div>
+            <button id="loadMoreBtn" class="load-more-btn" style="display: none;">Lihat Lebih Banyak</button>
+        </section>
+
+        <!-- Floating Upload Button -->
+        <button class="floating-upload-btn" onclick="openUploadModal()" title="Upload Foto">
+            <span class="upload-icon">+</span>
+        </button>
+
+        <section class="admin-section" id="adminPanel" style="display: none;">
+            <h3>Admin Panel - Tambah Foto</h3>
+            <div class="admin-info">
+                <p>📋 <strong>Folder ID Google Drive:</strong> <span id="folderIdDisplay"></span></p>
+                <p>ℹ️ Upload foto langsung ke folder Google Drive, lalu refresh halaman ini</p>
+                <button id="refreshGallery" class="btn-primary">🔄 Refresh Gallery</button>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p class="small-text">© 2025 For Salsha</p>
+        </footer>
+    </div>
+
+    <!-- Modal untuk view foto full size -->
+    <div id="photoModal" class="modal">
+        <span class="modal-close">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div id="caption"></div>
+    </div>
+
+    <!-- Modal Upload Foto -->
+    <div id="uploadModal" class="modal">
+        <div class="upload-modal-content">
+            <span class="modal-close" onclick="closeUploadModal()">&times;</span>
+            <h2>Upload Foto Baru</h2>
+            
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon-big">📸</div>
+                <p class="upload-text">Drag & drop foto di sini</p>
+                <p class="upload-subtext">atau</p>
+                <label for="fileInput" class="upload-browse-btn">Pilih Foto</label>
+                <input type="file" id="fileInput" accept="image/*" multiple style="display: none;">
+                <p class="upload-info">File besar akan otomatis dicompress</p>
+            </div>
+
+            <div id="uploadPreview" class="upload-preview" style="display: none;"></div>
+            
+            <div class="upload-actions" id="uploadActions" style="display: none;">
+                <button class="btn-cancel" onclick="cancelUpload()">Batal</button>
+                <button class="btn-upload" onclick="uploadPhotos()">Upload</button>
+            </div>
+            
+            <div id="uploadProgress" class="upload-progress" style="display: none;">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <p id="progressText">Uploading...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Password Protection
+        const CORRECT_PASSWORD = '271201';
+        
+        function checkPassword() {
+            const input = document.getElementById('passwordInput');
+            const error = document.getElementById('passwordError');
+            const overlay = document.getElementById('passwordOverlay');
+            const mainContent = document.getElementById('mainContent');
+            
+            if (input.value === CORRECT_PASSWORD) {
+                // Success - Show main content
+                error.style.display = 'none';
+                overlay.style.opacity = '0';
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                    mainContent.style.display = 'block';
+                    // Trigger fade in animation
+                    setTimeout(() => {
+                        mainContent.style.opacity = '1';
+                    }, 50);
+                }, 500);
+                
+                // Save to session storage so they don't need to login again
+                sessionStorage.setItem('authenticated', 'true');
+            } else {
+                // Error - Wrong password
+                error.textContent = '❌ Password salah! Coba lagi...';
+                error.style.display = 'block';
+                input.value = '';
+                input.classList.add('shake');
+                setTimeout(() => {
+                    input.classList.remove('shake');
+                }, 500);
+            }
+        }
+        
+        // Allow Enter key to submit
+        document.addEventListener('DOMContentLoaded', () => {
+            const input = document.getElementById('passwordInput');
+            if (input) {
+                input.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        checkPassword();
+                    }
+                });
+                
+                // Auto focus on password input
+                input.focus();
+            }
+            
+            // Check if already authenticated in this session
+            if (sessionStorage.getItem('authenticated') === 'true') {
+                document.getElementById('passwordOverlay').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+                document.getElementById('mainContent').style.opacity = '1';
+            }
+        });
+    </script>
+    <script src="app.js"></script>
+</body>
+</html>
