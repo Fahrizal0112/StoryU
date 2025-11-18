@@ -332,9 +332,18 @@ function closeUploadModal() {
 function setupUploadHandlers() {
     const uploadArea = document.getElementById('uploadArea');
     const fileInput = document.getElementById('fileInput');
+    const browseBtn = document.querySelector('.upload-browse-btn');
     
-    // Click to upload
-    uploadArea.onclick = () => fileInput.click();
+    // Remove onclick from uploadArea to prevent double trigger
+    // Only trigger via button or drag-drop
+    
+    // Button click handler
+    if (browseBtn) {
+        browseBtn.onclick = (e) => {
+            e.stopPropagation();
+            fileInput.click();
+        };
+    }
     
     // Drag & Drop handlers
     uploadArea.addEventListener('dragover', (e) => {
