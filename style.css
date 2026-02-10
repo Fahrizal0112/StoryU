@@ -318,7 +318,7 @@ body {
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0;
     animation: containerFadeIn 1.2s ease;
 }
 
@@ -346,6 +346,17 @@ body {
     border: 2px solid rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(20px);
     animation: gentleFloat 8s ease-in-out infinite;
+}
+
+/* Memorys Title */
+.memorys-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.8rem;
+    color: var(--deep-rose);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.9);
+    animation: organicFadeIn 1.3s ease;
 }
 
 @keyframes gentleFloat {
