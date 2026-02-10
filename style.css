@@ -440,11 +440,11 @@ body {
 
 /* Intro Section */
 .intro-section {
-    background: white;
-    padding: 40px;
-    border-radius: 15px;
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
     margin-bottom: 40px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: none;
     animation: fadeIn 1.2s ease;
 }
 
@@ -467,13 +467,13 @@ body {
 
 /* Gallery Section */
 .gallery-section {
-    background: rgba(255, 255, 255, 0.95);
-    padding: 50px;
-    border-radius: 40px;
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
     margin-bottom: 50px;
-    box-shadow: 0 25px 70px rgba(214, 51, 132, 0.15);
-    backdrop-filter: blur(20px);
-    border: 2px solid rgba(255, 255, 255, 0.8);
+    box-shadow: none;
+    backdrop-filter: none;
+    border: none;
 }
 
 .section-title {
@@ -488,8 +488,8 @@ body {
 
 .photo-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
     margin-bottom: 35px;
     animation: gridFadeIn 1.8s ease;
 }
@@ -508,20 +508,19 @@ body {
 .photo-item {
     position: relative;
     overflow: hidden;
-    border-radius: 30px;
-    box-shadow: 0 12px 30px rgba(214, 51, 132, 0.2);
+    border-radius: 0;
+    box-shadow: none;
     cursor: pointer;
     transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
     aspect-ratio: 1;
-    background: white;
+    background: transparent;
     opacity: 0;
     animation: photoItemFadeIn 0.9s ease forwards;
 }
 
 .photo-item:hover {
-    transform: translateY(-20px) scale(1.05);
-    box-shadow: 0 35px 70px rgba(214, 51, 132, 0.4);
-    border: 3px solid var(--warm-pink);
+    transform: translateY(-5px) scale(1.02);
+    filter: brightness(1.05);
 }
 
 .photo-item img {
@@ -530,11 +529,11 @@ body {
     object-fit: cover;
     transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
     filter: brightness(0.95);
+    display: block;
 }
 
 .photo-item:hover img {
-    transform: scale(1.08);
-    filter: brightness(1.05);
+    transform: scale(1.03);
 }
 
 @keyframes photoItemFadeIn {
@@ -618,11 +617,11 @@ body {
 
 /* Admin Section */
 .admin-section {
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    padding: 30px;
-    border-radius: 15px;
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
     margin-bottom: 40px;
-    border: 2px dashed var(--accent-color);
+    border: none;
 }
 
 .admin-section h3 {
@@ -693,8 +692,8 @@ body {
     animation: modalZoomIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     transition: opacity 0.3s ease;
     object-fit: contain;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
+    background: transparent;
+    border-radius: 0;
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
 }
 
@@ -718,6 +717,13 @@ body {
     font-weight: bold;
     cursor: pointer;
     transition: 0.3s;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .modal-close:hover {
@@ -739,11 +745,11 @@ body {
 .footer {
     text-align: center;
     padding: 50px;
-    background: var(--romantic-gradient);
-    border-radius: 30px;
-    box-shadow: var(--soft-shadow);
-    border: 2px solid rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(15px);
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
+    backdrop-filter: none;
     position: relative;
     overflow: hidden;
     animation: footerFloat 6s ease-in-out infinite;
@@ -849,7 +855,7 @@ body {
 
     .photo-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
+        gap: 0;
     }
 
     .modal-close {
@@ -857,14 +863,14 @@ body {
         right: 25px;
         font-size: 40px;
     }
-    
+
     .floating-upload-btn {
         width: 55px;
         height: 55px;
         bottom: 20px;
         right: 20px;
     }
-    
+
     .upload-modal-content {
         width: 95%;
         padding: 25px;
@@ -956,17 +962,17 @@ body {
 
 /* Upload Modal */
 .upload-modal-content {
-    background: rgba(255, 255, 255, 0.95);
+    background: transparent;
     margin: 5% auto;
     padding: 45px;
-    border-radius: 40px;
+    border-radius: 0;
     max-width: 700px;
     width: 90%;
     box-shadow: 0 30px 80px rgba(214, 51, 132, 0.2);
     position: relative;
     animation: organicSlideIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
-    backdrop-filter: blur(20px);
-    border: 2px solid rgba(255, 255, 255, 0.8);
+    backdrop-filter: none;
+    border: none;
 }
 
 .upload-modal-content h2 {
@@ -980,8 +986,8 @@ body {
 
 /* Upload Area */
 .upload-area {
-    border: 3px dashed var(--warm-pink);
-    border-radius: 35px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 0;
     padding: 60px 45px;
     text-align: center;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 182, 193, 0.15) 100%);
@@ -1066,7 +1072,7 @@ body {
     background: linear-gradient(135deg, var(--deep-rose) 0%, var(--primary-color) 100%);
     color: white;
     border: none;
-    border-radius: 30px;
+    border-radius: 0;
     cursor: pointer;
     transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     font-weight: 500;
@@ -1226,7 +1232,7 @@ body {
 .btn-upload {
     padding: 12px 35px;
     border: none;
-    border-radius: 25px;
+    border-radius: 0;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
