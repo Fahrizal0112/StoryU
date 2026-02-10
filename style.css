@@ -489,7 +489,7 @@ body {
 .photo-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 0;
+    gap: 12px;
     margin-bottom: 35px;
     animation: gridFadeIn 1.8s ease;
 }
