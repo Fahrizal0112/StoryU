@@ -492,6 +492,7 @@ body {
     gap: 12px;
     margin-bottom: 35px;
     animation: gridFadeIn 1.8s ease;
+    width: 100%;
 }
 
 @keyframes gridFadeIn {
