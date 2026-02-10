@@ -44,8 +44,11 @@ body {
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
     max-width: 450px;
     width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
     text-align: center;
     animation: slideInDown 0.6s ease;
+    box-sizing: border-box;
 }
 
 .password-header {
@@ -74,6 +77,9 @@ body {
     display: flex;
     gap: 10px;
     margin-bottom: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
 
 .password-input-group input {
@@ -86,6 +92,10 @@ body {
     text-align: center;
     letter-spacing: 3px;
     transition: all 0.3s ease;
+    max-width: 200px;
+    min-width: 150px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .password-input-group input:focus {
@@ -529,6 +539,34 @@ body {
     }
 }
 
+/* Very small mobile devices */
+@media (max-width: 480px) {
+    .password-container {
+        padding: 30px 20px;
+        margin: 10px;
+        width: calc(100% - 20px);
+    }
+    
+    .password-input-group {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .password-input-group input,
+    .password-input-group button {
+        width: 100%;
+        max-width: none;
+    }
+    
+    .password-header h2 {
+        font-size: 1.6rem;
+    }
+    
+    .lock-icon {
+        font-size: 3rem;
+    }
+}
+
 /* Floating Upload Button */
 .floating-upload-btn {
     position: fixed;
@@ -646,6 +684,48 @@ body {
         min-height: 48px; /* Minimum touch target size */
         width: 80%;
         margin: 0 auto;
+    }
+    
+    /* Password mobile fixes */
+    .password-container {
+        padding: 40px 25px;
+        margin: 20px;
+        width: calc(100% - 40px);
+        max-width: none;
+    }
+    
+    .password-input-group input {
+        max-width: 100%;
+        min-width: auto;
+        padding: 18px 25px;
+        font-size: 1.2rem;
+        letter-spacing: 4px;
+    }
+    
+    .password-input-group button {
+        padding: 18px 25px;
+        font-size: 1.2rem;
+        min-width: 80px;
+    }
+    
+    .lock-icon {
+        font-size: 3.5rem;
+        margin-bottom: 15px;
+    }
+    
+    .password-header h2 {
+        font-size: 1.8rem;
+        margin-bottom: 8px;
+    }
+    
+    .password-header p {
+        font-size: 0.9rem;
+    }
+    
+    .password-hint {
+        font-size: 0.8rem;
+        padding: 12px;
+        margin-top: 15px;
     }
 }
 
