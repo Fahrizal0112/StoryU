@@ -1,212 +1,146 @@
-# Website Kenang-kenangan ❤️
+# 📖 StoryU - A Romantic Story App
 
-Website romantic untuk menyimpan kenangan bersama pacar dengan foto dari Google Drive.
+A beautiful, romantic story application built with modern web technologies.
 
-## ✨ Fitur
+![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
+![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)
 
-- 📸 Gallery foto dari Google Drive
-- 💕 Desain romantic dan responsive
-- 🖼️ Modal view untuk foto full size
-- ⚡ Lazy loading untuk performa optimal
-- 📱 Mobile-friendly
-- 🔄 Load more untuk foto tambahan
+## ✨ Features
 
-## 🚀 Cara Setup
+- 🌸 **Romantic UI Design** - Beautiful and organic interface with soft animations
+- 💕 **Smooth Animations** - Fluid transitions and floating hearts effects
+- 📱 **Mobile Responsive** - Optimized for all device sizes
+- 🔒 **Secure Authentication** - Password-protected stories
+- 🎨 **Modern Design** - Glassmorphism, soft gradients, and elegant typography
+- ⚡ **Fast Performance** - Built with Vite for lightning-fast builds
 
-### 1. Setup Google Drive
+## 🎯 Screenshots
 
-#### Opsi A: Menggunakan Google Drive API (Recommended)
+> Coming soon - Screenshots of the beautiful interface
 
-1. **Buat folder di Google Drive** untuk menyimpan foto
-2. **Bagikan folder**:
-   - Klik kanan folder > "Share" atau "Bagikan"
-   - Klik "Change to anyone with the link"
-   - Pastikan set ke "Viewer" atau "Pembaca"
-   - Copy link folder
-3. **Ambil Folder ID** dari URL:
-   - URL: `https://drive.google.com/drive/folders/1ABC123xyz`
-   - Folder ID: `1ABC123xyz`
+## 🚀 Getting Started
 
-4. **Dapatkan Google API Key**:
-   - Buka [Google Cloud Console](https://console.cloud.google.com/)
-   - Buat project baru atau pilih existing project
-   - Enable **Google Drive API**
-   - Buat credentials > API Key
-   - Copy API Key
+### Prerequisites
 
-5. **Edit file `app.js`**:
-```javascript
-const CONFIG = {
-    FOLDER_ID: 'YOUR_FOLDER_ID_HERE',  // Paste Folder ID
-    API_KEY: 'YOUR_API_KEY_HERE',       // Paste API Key
-    INITIAL_LOAD: 12,
-    LOAD_MORE_COUNT: 6
-};
-```
+- Node.js 16+ 
+- npm or yarn
 
-#### Opsi B: Menggunakan JSON Manual (Alternatif)
+### Installation
 
-Jika tidak mau pakai API Key:
-
-1. Upload foto ke Google Drive folder (tetap harus public)
-2. Untuk setiap foto, klik kanan > "Get link" > Copy link
-3. Extract photo ID dari link: `https://drive.google.com/file/d/PHOTO_ID_HERE/view`
-4. Edit file `photos.json`:
-
-```json
-{
-  "photos": [
-    {
-      "id": "1",
-      "name": "Kenangan Pertama",
-      "url": "https://drive.google.com/uc?export=view&id=PHOTO_ID_1"
-    },
-    {
-      "id": "2",
-      "name": "Kenangan Kedua",
-      "url": "https://drive.google.com/uc?export=view&id=PHOTO_ID_2"
-    }
-  ]
-}
-```
-
-5. Edit `app.js`, ganti di bagian `DOMContentLoaded`:
-
-```javascript
-window.addEventListener('DOMContentLoaded', () => {
-    loadPhotosFromJSON();  // Ganti loadPhotos() dengan ini
-    setupEventListeners();
-});
-```
-
-### 2. Test Lokal
-
-1. Buka `index.html` di browser
-2. Atau gunakan Live Server di VS Code
-3. Pastikan foto muncul dengan benar
-
-### 3. Deploy ke Vercel
-
-#### A. Via GitHub (Recommended)
-
-1. **Push ke GitHub**:
+1. Clone the repository:
 ```bash
-git init
-git add .
-git commit -m "Initial commit - website kenangan"
-git branch -M main
-git remote add origin https://github.com/USERNAME/REPO_NAME.git
-git push -u origin main
+git clone https://github.com/Fahrizal0112/StoryU.git
+cd StoryU
 ```
 
-2. **Deploy di Vercel**:
-   - Buka [vercel.com](https://vercel.com)
-   - Sign in dengan GitHub
-   - Click "New Project"
-   - Import repository Anda
-   - Click "Deploy"
-   - Tunggu sampai selesai
-   - Copy URL website Anda!
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+```
 
-#### B. Via Vercel CLI
+3. Run the development server:
+```bash
+npm run dev
+# or
+yarn dev
+```
 
-1. **Install Vercel CLI**:
+4. Open your browser and visit:
+```
+http://localhost:5173
+```
+
+## 🏗️ Build for Production
+
+```bash
+npm run build
+# or
+yarn build
+```
+
+## 📦 Deploy
+
+### Vercel (Recommended)
 ```bash
 npm install -g vercel
-```
-
-2. **Login dan Deploy**:
-```bash
-vercel login
 vercel
 ```
 
-3. Ikuti prompt dan website akan di-deploy!
-
-#### C. Via Drag & Drop
-
-1. Buka [vercel.com/new](https://vercel.com/new)
-2. Drag & drop folder project Anda
-3. Click "Deploy"
-4. Selesai!
-
-## 📝 Cara Menambah Foto Baru
-
-### Metode 1: Google Drive API
-1. Upload foto baru ke folder Google Drive
-2. Buka website + `?admin=true` (contoh: `https://yoursite.vercel.app?admin=true`)
-3. Click tombol "🔄 Refresh Gallery"
-4. Foto baru akan muncul otomatis!
-
-### Metode 2: JSON Manual
-1. Upload foto ke Google Drive
-2. Get link dan extract photo ID
-3. Edit `photos.json`, tambahkan entry baru
-4. Commit dan push ke GitHub
-5. Vercel akan auto-deploy update
-
-## 🎨 Customisasi
-
-### Ganti Warna
-Edit `style.css` di bagian `:root`:
-```css
-:root {
-    --primary-color: #ff6b9d;      /* Warna utama */
-    --secondary-color: #ffc2d1;    /* Warna sekunder */
-    --accent-color: #c44569;       /* Warna aksen */
-}
+### Netlify
+```bash
+npm run build
+# Deploy the `dist` folder to Netlify
 ```
 
-### Ganti Text
-Edit `index.html`:
-- Title: `<title>Our Memories ❤️</title>`
-- Heading: `<h1 class="main-title">Our Love Story ❤️</h1>`
-- Deskripsi: Edit di section `intro-content`
+## 🛠️ Tech Stack
 
-### Tambah Musik Background (Opsional)
-Tambahkan di `index.html` sebelum `</body>`:
-```html
-<audio autoplay loop>
-    <source src="your-music.mp3" type="audio/mpeg">
-</audio>
-```
+- **React** - UI Library
+- **Vite** - Build Tool
+- **Vite Plugin PWA** - Progressive Web App
+- **CSS3** - Styling with modern features
 
-## 🔒 Privacy & Security
+## 📝 Features Breakdown
 
-- Jangan share API Key ke public repository
-- Gunakan environment variables untuk production:
-  1. Di Vercel dashboard > Settings > Environment Variables
-  2. Add: `GOOGLE_API_KEY` dan `FOLDER_ID`
-  3. Update `app.js` untuk baca dari env variables
+### Authentication
+- Secure password-based login
+- Mobile-optimized input fields
+- Smooth transition between screens
 
-## ⚡ Tips
+### Story Display
+- Beautiful card-based layout
+- Floating hearts animation
+- Gradient backgrounds
+- Glassmorphism effects
 
-1. **Optimasi Foto**: Compress foto sebelum upload (gunakan TinyPNG.com)
-2. **Nama File**: Gunakan nama yang berurutan (001.jpg, 002.jpg) untuk sorting
-3. **Admin Mode**: Tambahkan `?admin=true` di URL untuk akses admin panel
-4. **Custom Domain**: Di Vercel dashboard > Settings > Domains untuk custom domain
+### Responsive Design
+- Mobile-first approach
+- Optimized touch targets
+- Flexible grid layouts
 
-## 🐛 Troubleshooting
+## 🎨 Design System
 
-**Foto tidak muncul?**
-- Cek folder Google Drive sudah public
-- Cek Folder ID dan API Key sudah benar
-- Buka Developer Console (F12) untuk lihat error
+### Colors
+- Primary: `#d63384` (Deep Rose)
+- Secondary: `#ffafcc` (Warm Pink)
+- Accent: `#ffb7b2` (Pastel Pink)
+- Background: Soft gradients
 
-**Deploy gagal?**
-- Pastikan semua file sudah di-commit
-- Cek file `vercel.json` ada dan valid
-- Cek Vercel deployment logs
+### Typography
+- Headings: 'Dancing Script' - Elegant and romantic
+- Body: System fonts with good readability
 
-**Load lama?**
-- Compress foto
-- Kurangi `INITIAL_LOAD` di `app.js`
-- Enable lazy loading sudah aktif
+## 🤝 Contributing
 
-## 💝 Selamat!
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-Website kenangan Anda siap! Semoga pacar Anda suka! ❤️
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👥 Authors
+
+- **Fahrizal0112** - *Initial work* - [GitHub](https://github.com/Fahrizal0112)
+
+## 🙏 Acknowledgments
+
+- Beautiful animations inspired by nature
+- Modern design trends
+- Community of open-source developers
+
+## 📞 Contact
+
+- GitHub: [@Fahrizal0112](https://github.com/Fahrizal0112)
+- Email: your.email@example.com
 
 ---
 
-Made with 💕 for your special someone
+Made with 💕 for romantic storytelling
